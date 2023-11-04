@@ -79,4 +79,4 @@ alterando para suas próprias configurações obtidas nos passos anteriores.
 
 ### Se você fez tudo corretamente, PARABÉNS agora você tem seu própio newsletter do MEC com um BOT do telegram.
 
-OBS: O bot funciona por um sistema de DB automatizada, então tanto a ***main.py*** e a ***manage-users/manage_users.py/*** tem que estar rodando 24h.
+OBS: O bot funciona por um sistema de DB automatizada, então tanto a ***main.py*** e a ***manage-users/manage_users.py/*** tem que estar rodando 24h, e se quiser aprender a fazer isso em um RaspberryPi [Clique Aqui](https://www.tabnews.com.br/mksDEV08/dica-rodar-um-script-python-em-background-em-um-sistema-ubuntu).
