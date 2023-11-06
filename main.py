@@ -30,18 +30,22 @@ def main():
     while True:
         last = get_last()
 
-        file = open("last_new.txt", 'r+', encoding='latin1')
+        file = open("last_new.txt", 'r+')
 
         old = file.read()
 
         if last is not None:
-            if last[1] != old:
+            title_utf8 = str(last[2])
+            title_utf8 = title_utf8.split('/')
+            title_utf8 = title_utf8[len(title_utf8) - 1]
+            
+            if title_utf8 != old:
                 with client:
                     client.loop.run_until_complete(send_messages(last[0], last[1], last[2], last[3]))
 
                 file.seek(0)
                 file.truncate(0)
-                file.write(str(last[1]))
+                file.write(title_utf8)
 
                 print("New, sending messages...")
 
