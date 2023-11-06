@@ -1,7 +1,7 @@
 from telethon import TelegramClient, events
 from cs50 import SQL
 
-db = SQL("sqlite:///aluno-antenado.db")
+db = SQL("sqlite:///manage-users/aluno-antenado.db")
 
 api_id = 12345678
 api_hash = '123456789a0a0a12345a0a0a0a0a123a'
