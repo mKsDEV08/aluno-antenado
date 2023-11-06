@@ -7,7 +7,9 @@ from bs4 import BeautifulSoup
 
 from telethon import TelegramClient
 
-from consume_ids import consume_ids
+from helper import consume_ids, consume_news
+
+from cs50 import SQL
 
 month = datetime.now().month
 year = datetime.now().year
@@ -20,6 +22,8 @@ headers = {
                   "Chrome/86.0.4240.198 Safari/537.36"
 }
 
+db = SQL("sqlite:///manage-users/aluno-antenado.db")
+
 api_id = 12345678
 api_hash = '123456789a0a0a12345a0a0a0a0a123a'
 bot_token = "1234567890:ABCDEf_ab0aBC0ABVdefgh0aBcd0a12a_bcd"
@@ -30,22 +34,18 @@ def main():
     while True:
         last = get_last()
 
-        file = open("last_new.txt", 'r+')
-
-        old = file.read()
+        old_news = consume_news()
 
         if last is not None:
             title_utf8 = str(last[2])
             title_utf8 = title_utf8.split('/')
             title_utf8 = title_utf8[len(title_utf8) - 1]
             
-            if title_utf8 != old:
+            if title_utf8 not in old_news:
                 with client:
                     client.loop.run_until_complete(send_messages(last[0], last[1], last[2], last[3]))
 
-                file.seek(0)
-                file.truncate(0)
-                file.write(title_utf8)
+                db.execute("INSERT INTO news (new) VALUES (?)", title_utf8)
 
                 print("New, sending messages...")
 
@@ -54,8 +54,6 @@ def main():
 
         else:
             print("No news last is none")
-
-        file.close()
 
         sleep(600)
 
